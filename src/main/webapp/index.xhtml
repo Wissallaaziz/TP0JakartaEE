@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html"
+      xmlns:f="jakarta.faces.core">
+<h:head>
+    <title>TP0 - Jakarta EE</title>
+</h:head>
+<h:body>
+    <h1>TP0 - Introduction à Jakarta EE 11</h1>
+    <h:form>
+        <h:outputLabel for="name" value="Votre nom : "/>
+        <h:inputText id="name" value="#{helloBean.name}"/>
+        <h:commandButton value="Dire bonjour" action="#{helloBean.sayHello}"/>
+    </h:form>
+    <h:panelGroup rendered="#{not empty helloBean.message}">
+        <p><strong>#{helloBean.message}</strong></p>
+    </h:panelGroup>
+</h:body>
+</html>
