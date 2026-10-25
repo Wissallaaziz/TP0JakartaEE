@@ -1,19 +1,135 @@
+
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="jakarta.faces.html"
-      xmlns:f="jakarta.faces.core">
+      xmlns:f="jakarta.faces.core"
+      xmlns:p="primefaces">
+
 <h:head>
-    <title>TP0 - Jakarta EE</title>
+    <title>TP0 - Assistant intelligent</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <h:outputStylesheet library="css" name="style.css" />
+    <h:outputScript library="js" name="chat.js" target="body" />
 </h:head>
+
 <h:body>
-    <h1>TP0 - Introduction à Jakarta EE 11</h1>
-    <h:form>
-        <h:outputLabel for="name" value="Votre nom : "/>
-        <h:inputText id="name" value="#{helloBean.name}"/>
-        <h:commandButton value="Dire bonjour" action="#{helloBean.sayHello}"/>
-    </h:form>
-    <h:panelGroup rendered="#{not empty helloBean.message}">
-        <p><strong>#{helloBean.message}</strong></p>
-    </h:panelGroup>
+    <div class="page-container">
+        <header class="app-header">
+            <h1>Mon assistant</h1>
+            <p>Posez votre question et choisissez votre assistant.</p>
+        </header>
+
+        <h:form id="chatForm">
+
+            <p:messages id="messages"
+                        showDetail="true"
+                        closable="true" />
+
+            <section class="chat-card">
+
+                <div class="form-group">
+                    <p:outputLabel for="role" value="Choisir un rôle" />
+
+                    <p:selectOneMenu id="role"
+                                     value="#{chatBean.role}"
+                                     disabled="#{chatBean.roleVerrouille}"
+                                     required="false"
+                                     styleClass="role-select">
+
+                        <f:selectItem itemLabel="-- Sélectionner un rôle --"
+                                      itemValue=""
+                                      noSelectionOption="true" />
+
+                        <f:selectItem itemLabel="Assistant"
+                                      itemValue="Assistant" />
+
+                        <f:selectItem itemLabel="Traducteur français-anglais"
+                                      itemValue="Traducteur français-anglais" />
+
+                        <f:selectItem itemLabel="Guide touristique"
+                                      itemValue="Guide touristique" />
+                    </p:selectOneMenu>
+                </div>
+
+                <div class="form-group">
+                    <p:outputLabel for="question" value="Votre question" />
+
+                    <p:inputTextarea id="question"
+                                     value="#{chatBean.question}"
+                                     rows="5"
+                                     autoResize="false"
+                                     maxlength="2000"
+                                     placeholder="Écrivez votre question ici..."
+                                     styleClass="text-area" />
+                </div>
+
+                <div class="button-group">
+                    <p:commandButton value="Envoyer"
+                                     icon="pi pi-send"
+                                     action="#{chatBean.envoyer}"
+                                     process="@form"
+                                     update="@form"
+                                     styleClass="primary-button" />
+
+                    <p:commandButton value="Effacer la dernière réponse"
+                                     icon="pi pi-trash"
+                                     action="#{chatBean.effacerDerniereQuestion}"
+                                     process="@this"
+                                     update="@form"
+                                     immediate="true"
+                                     styleClass="secondary-button" />
+
+                    <p:commandButton value="Nouveau chat"
+                                     icon="pi pi-refresh"
+                                     action="#{chatBean.nouveauChat}"
+                                     process="@this"
+                                     update="@form"
+                                     immediate="true"
+                                     styleClass="secondary-button" />
+                </div>
+
+                <div class="form-group">
+                    <p:outputLabel for="reponse" value="Réponse" />
+
+                    <p:inputTextarea id="reponse"
+                                     value="#{chatBean.reponse}"
+                                     rows="5"
+                                     readonly="true"
+                                     autoResize="false"
+                                     styleClass="text-area response-area" />
+
+                    <p:commandButton value="Copier la réponse"
+                                     type="button"
+                                     icon="pi pi-copy"
+                                     onclick="copierTexte('chatForm:reponse');"
+                                     styleClass="secondary-button" />
+                </div>
+
+                <div class="form-group">
+                    <p:outputLabel for="historique" value="Historique de la conversation" />
+
+                    <p:inputTextarea id="historique"
+                                     value="#{chatBean.historiqueAsText}"
+                                     rows="10"
+                                     readonly="true"
+                                     autoResize="false"
+                                     styleClass="text-area history-area" />
+
+                    <p:commandButton value="Copier l'historique"
+                                     type="button"
+                                     icon="pi pi-copy"
+                                     onclick="copierTexte('chatForm:historique');"
+                                     styleClass="secondary-button" />
+                </div>
+
+            </section>
+        </h:form>
+
+        <footer class="app-footer">
+            TP0 - Jakarta EE 11, CDI, JSF et PrimeFaces
+        </footer>
+    </div>
 </h:body>
 </html>
