@@ -4,31 +4,12 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import jakarta.enterprise.context.Dependent;
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 
-@Dependent
-class GenerateurReponse {
-
-    public String generer(String question, String role, boolean premiereQuestion) {
-        StringBuilder message = new StringBuilder();
-
-        if (premiereQuestion) {
-            message.append("Bonjour ! ");
-        }
-
-        message.append("Je peux vous aider en tant que ")
-               .append(role)
-               .append(". Votre question : ")
-               .append(question);
-
-        return message.toString();
-    }
-}
 
 @Named("chatBean")
 @ViewScoped

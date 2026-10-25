@@ -1,8 +1,6 @@
 package ma.emsi.wissal.tp0;
 
 import jakarta.enterprise.context.ApplicationScoped;
-
-/** Bean CDI applicatif : service injecté dans le managed bean. */
 @ApplicationScoped
 public class GreetingService {
 

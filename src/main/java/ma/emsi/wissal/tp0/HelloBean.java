@@ -5,8 +5,6 @@ import java.io.Serializable;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
-
-/** Managed bean JSF (CDI @Named) utilisé par la page index.xhtml. */
 @Named
 @RequestScoped
 public class HelloBean implements Serializable {
