@@ -1,9 +1,14 @@
+
 package ma.emsi.wissal.tp0;
+
+import java.io.Serializable;
 
 import jakarta.enterprise.context.Dependent;
 
 @Dependent
-public class GenerateurReponse {
+public class GenerateurReponse implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     public String generer(String question, String role, boolean premiereQuestion) {
         String questionTraitee = question.trim().toUpperCase();
